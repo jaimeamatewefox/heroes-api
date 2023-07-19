@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,7 +25,7 @@ public class HeroesController {
     private final HeroDTOMapper heroDTOMapper;
 
     @PostMapping("heroes")
-    ResponseEntity<GetHeroByIdDTO> createHero(@RequestBody CreateHeroDTO createHeroDTO) {
+    ResponseEntity<GetHeroByIdDTO> createHero(@Valid @RequestBody CreateHeroDTO createHeroDTO) {
         Hero createdHero = createHeroUseCase.execute(heroDTOMapper.createHeroDtoToHero(createHeroDTO));
 
         return new ResponseEntity<>(heroDTOMapper.heroToGetHeroById(createdHero), HttpStatus.CREATED);
@@ -39,6 +40,7 @@ public class HeroesController {
     }
 
     @GetMapping("heroes/{id}")
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     ResponseEntity<GetHeroByIdDTO> getHeroById(@PathVariable UUID id) {
         Hero hero = getHeroByIdUseCase.execute(id);
 

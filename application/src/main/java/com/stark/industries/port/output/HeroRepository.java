@@ -3,6 +3,7 @@ package com.stark.industries.port.output;
 import com.stark.industries.entity.Hero;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface HeroRepository {
@@ -10,5 +11,5 @@ public interface HeroRepository {
 
     List<Hero> getAll();
 
-    Hero getById(UUID id);
+    Optional<Hero> getById(UUID id);
 }

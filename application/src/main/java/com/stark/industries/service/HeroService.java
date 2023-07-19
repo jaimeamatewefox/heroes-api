@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -17,7 +18,7 @@ public class HeroService {
         return repository.save(hero);
     }
 
-    public Hero getById(UUID id) { return repository.getById(id);};
+    public Optional<Hero> getById(UUID id) { return repository.getById(id);};
 
     public List<Hero> getAll() { return repository.getAll();};
 }

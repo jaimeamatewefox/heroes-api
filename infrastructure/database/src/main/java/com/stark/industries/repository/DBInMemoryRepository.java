@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -27,10 +28,9 @@ public class DBInMemoryRepository implements HeroRepository {
     }
 
     @Override
-    public Hero getById(UUID id) {
+    public Optional<Hero> getById(UUID id) {
         return heroesList.stream()
                 .filter(hero -> id.equals(hero.getId()))
-                .findAny()
-                .orElse(null);
+                .findAny();
     }
 }
