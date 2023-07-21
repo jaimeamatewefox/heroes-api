@@ -1,21 +1,38 @@
 package com.stark.industries.exception;
 
 import com.wefox.server.lib.common.core.exception.NotFoundException;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
+
+@Data
+@Builder
+@AllArgsConstructor
+@RequiredArgsConstructor
+class Error {
+    private Number status;
+    private String message;
+}
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(NotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<String> handleNoSuchElementFoundException(
+    public ResponseEntity<Error> handleNoSuchElementFoundException(
             NotFoundException exception
     ) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+
         return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body(exception.getMessage());
+                .status(status)
+                .body(
+                        Error.builder()
+                                .message(exception.getMessage())
+                                .status(status.value())
+                                .build());
     }
 }
