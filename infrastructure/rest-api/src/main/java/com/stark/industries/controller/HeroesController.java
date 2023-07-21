@@ -5,10 +5,7 @@ import com.stark.industries.dto.GetHeroByIdDTO;
 import com.stark.industries.dto.UpdateHeroDTO;
 import com.stark.industries.entity.Hero;
 import com.stark.industries.mapper.HeroDTOMapper;
-import com.stark.industries.port.input.CreateHeroUseCase;
-import com.stark.industries.port.input.GetHeroByIdUseCase;
-import com.stark.industries.port.input.GetHeroesUseCase;
-import com.stark.industries.port.input.UpdateHeroUseCase;
+import com.stark.industries.port.input.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +22,7 @@ public class HeroesController {
     private final GetHeroByIdUseCase getHeroByIdUseCase;
     private final GetHeroesUseCase getHeroesUseCase;
     private final UpdateHeroUseCase updateHeroUseCase;
+    private final DeleteHeroUseCase deleteHeroUseCase;
     private final HeroDTOMapper heroDTOMapper;
 
     @PostMapping("heroes")
@@ -54,5 +52,12 @@ public class HeroesController {
         Hero hero = updateHeroUseCase.execute(heroDTOMapper.updateHeroToDtoToInputValues(id, updateHeroDTO));
 
         return new ResponseEntity<>(heroDTOMapper.heroToGetHeroById(hero), HttpStatus.OK);
+    }
+
+    @DeleteMapping("heroes/{id}")
+    ResponseEntity<Void> deleteHeroById(@PathVariable UUID id) {
+        deleteHeroUseCase.execute(id);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

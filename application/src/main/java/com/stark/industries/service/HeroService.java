@@ -21,4 +21,8 @@ public class HeroService {
     public Optional<Hero> getById(UUID id) { return repository.getById(id);};
 
     public List<Hero> getAll() { return repository.getAll();};
+
+    public void deleteById(UUID id) {
+        repository.deleteById(id);
+    }
 }

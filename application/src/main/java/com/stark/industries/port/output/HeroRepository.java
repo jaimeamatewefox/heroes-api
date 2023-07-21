@@ -12,4 +12,6 @@ public interface HeroRepository {
     List<Hero> getAll();
 
     Optional<Hero> getById(UUID id);
+
+    void deleteById(UUID id);
 }

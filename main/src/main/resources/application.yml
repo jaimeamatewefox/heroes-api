@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      username: ${APP_MONGODB_USER:user}
+      username: ${APP_MONGODB_USER:admin}
       password: ${APP_MONGODB_PASSWORD:password}
       database: ${APP_MONGODB_DB:admin}
       host: ${APP_MONGODB_CLUSTER:localhost}

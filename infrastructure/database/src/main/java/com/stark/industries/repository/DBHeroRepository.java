@@ -30,4 +30,7 @@ public class DBHeroRepository implements HeroRepository {
     public Optional<Hero> getById(UUID id) {
         return repository.findById(id.toString()).map(mapper::toDomainEntity);
     }
+
+    @Override
+    public void deleteById(UUID id) { repository.deleteById(id.toString()); }
 }
