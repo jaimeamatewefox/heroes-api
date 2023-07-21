@@ -2,11 +2,13 @@ package com.stark.industries.controller;
 
 import com.stark.industries.dto.CreateHeroDTO;
 import com.stark.industries.dto.GetHeroByIdDTO;
+import com.stark.industries.dto.UpdateHeroDTO;
 import com.stark.industries.entity.Hero;
 import com.stark.industries.mapper.HeroDTOMapper;
 import com.stark.industries.port.input.CreateHeroUseCase;
 import com.stark.industries.port.input.GetHeroByIdUseCase;
 import com.stark.industries.port.input.GetHeroesUseCase;
+import com.stark.industries.port.input.UpdateHeroUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,7 @@ public class HeroesController {
     private final CreateHeroUseCase createHeroUseCase;
     private final GetHeroByIdUseCase getHeroByIdUseCase;
     private final GetHeroesUseCase getHeroesUseCase;
+    private final UpdateHeroUseCase updateHeroUseCase;
     private final HeroDTOMapper heroDTOMapper;
 
     @PostMapping("heroes")
@@ -40,9 +43,15 @@ public class HeroesController {
     }
 
     @GetMapping("heroes/{id}")
-    @ResponseStatus(HttpStatus.NOT_FOUND)
     ResponseEntity<GetHeroByIdDTO> getHeroById(@PathVariable UUID id) {
         Hero hero = getHeroByIdUseCase.execute(id);
+
+        return new ResponseEntity<>(heroDTOMapper.heroToGetHeroById(hero), HttpStatus.OK);
+    }
+
+    @PutMapping("heroes/{id}")
+    ResponseEntity<GetHeroByIdDTO> updateHeroById(@PathVariable UUID id, @Valid @RequestBody UpdateHeroDTO updateHeroDTO) {
+        Hero hero = updateHeroUseCase.execute(heroDTOMapper.updateHeroToDtoToInputValues(id, updateHeroDTO));
 
         return new ResponseEntity<>(heroDTOMapper.heroToGetHeroById(hero), HttpStatus.OK);
     }
