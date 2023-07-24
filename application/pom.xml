@@ -27,6 +27,11 @@
             <groupId>com.wefox.server.lib.common</groupId>
             <artifactId>common-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.wefox.server.lib.common</groupId>
+            <artifactId>common-test</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>

@@ -1,12 +1,13 @@
 package com.stark.industries.entity;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.util.Set;
 import java.util.UUID;
 
 @Data
+@Builder
+@AllArgsConstructor
 public class Hero {
     private UUID id;
     private String name;

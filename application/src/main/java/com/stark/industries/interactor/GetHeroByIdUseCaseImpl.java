@@ -6,6 +6,7 @@ import com.stark.industries.port.input.GetHeroByIdUseCase;
 import com.stark.industries.service.HeroService;
 import com.wefox.server.lib.common.core.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
